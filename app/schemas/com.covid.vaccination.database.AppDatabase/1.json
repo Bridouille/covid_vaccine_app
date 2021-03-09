@@ -1,0 +1,116 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "4824d2b87139f14883d720a2046707ec",
+    "entities": [
+      {
+        "tableName": "vaccination_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `country` TEXT NOT NULL, `iso_code` TEXT NOT NULL, `date` TEXT NOT NULL, `total_vaccinations` INTEGER NOT NULL, `total_vaccinations_per_hundred` REAL NOT NULL, `daily_vaccinations_raw` INTEGER, `daily_vaccinations` INTEGER, `daily_vaccinations_per_million` REAL, `people_vaccinated` INTEGER, `people_vaccinated_per_hundred` REAL, `people_fully_vaccinated` INTEGER, `people_fully_vaccinated_per_hundred` REAL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isoCode",
+            "columnName": "iso_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalVaccinations",
+            "columnName": "total_vaccinations",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalVaccinationsPerHundred",
+            "columnName": "total_vaccinations_per_hundred",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dailyVaccinationRaw",
+            "columnName": "daily_vaccinations_raw",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dailyVaccinations",
+            "columnName": "daily_vaccinations",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dailyVaccinationsPerMillion",
+            "columnName": "daily_vaccinations_per_million",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peopleVaccinated",
+            "columnName": "people_vaccinated",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peopleVaccinatedPerHundred",
+            "columnName": "people_vaccinated_per_hundred",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peopleFullyVaccinated",
+            "columnName": "people_fully_vaccinated",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peopleFullyVaccinatedPerHundred",
+            "columnName": "people_fully_vaccinated_per_hundred",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_vaccination_data_iso_code_date",
+            "unique": true,
+            "columnNames": [
+              "iso_code",
+              "date"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_vaccination_data_iso_code_date` ON `${TABLE_NAME}` (`iso_code`, `date`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4824d2b87139f14883d720a2046707ec')"
+    ]
+  }
+}

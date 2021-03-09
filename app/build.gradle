@@ -55,6 +55,7 @@ ext {
     room_version = "2.2.6"
     compose_version = "1.0.0-beta01"
     moshi_version = "1.11.0"
+    retrofit_version = "2.9.0"
 }
 
 dependencies {
@@ -70,6 +71,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // Dagger
@@ -79,9 +81,12 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // Retrofit + moshi
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.3.1"
 
     // Compose stuff
     implementation "androidx.compose.compiler:compiler:1.0.0-beta01"
