@@ -106,6 +106,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha02'
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
 
     // === Unit test deps

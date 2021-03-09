@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.covid.vaccination.database.models.VaccinationData
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VaccinationDataDao {
@@ -17,5 +18,5 @@ interface VaccinationDataDao {
     suspend fun insertVaccinationData(list: List<VaccinationData>)
 
     @Query("SELECT * FROM $TABLE_NAME WHERE iso_code = :isoCode")
-    suspend fun getVaccinationDataForCountry(isoCode: String) : List<VaccinationData>
+    fun getVaccinationDataForCountry(isoCode: String) : Flow<List<VaccinationData>>
 }
