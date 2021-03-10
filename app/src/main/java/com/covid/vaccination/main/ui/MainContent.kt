@@ -173,52 +173,7 @@ fun VaccinationDataRow(vaccData: VaccinationData) {
 @Composable
 @Preview
 fun VaccinationDataRowPrev(@PreviewParameter(VaccinationDataProvider::class) vaccData: VaccinationData) {
-    val updatedAgo = DateUtils.getRelativeTimeSpanString(
-        SimpleDateFormat("yyyy-MM-dd").parse(vaccData.date).time, Date().time,
-        DateUtils.SECOND_IN_MILLIS,
-        DateUtils.FORMAT_ABBREV_RELATIVE
-    ).toString()
-    val dataUpdatedStr = stringResource(id = R.string.data_updated_x, updatedAgo)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(modifier = Modifier
-            .absolutePadding(right = 8.dp)
-            .clip(RoundedCornerShape(10.dp))) {
-            Box(modifier = Modifier
-                .wrapContentWidth()
-                .background(MaterialTheme.colors.secondary)) {
-                Text(
-                    text = "${vaccData.peopleFullyVaccinatedPerHundred}%",
-                    color = MaterialTheme.colors.onSecondary,
-                    style = MaterialTheme.typography.body2,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(
-                            horizontal = 8.dp, vertical = 4.dp
-                        )
-                )
-            }
-        }
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(text = vaccData.country, style = MaterialTheme.typography.body1, fontWeight = FontWeight.Bold)
-                Text(text = dataUpdatedStr, modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.caption, textAlign = TextAlign.End)
-            }
-            Text(text = stringResource(id = R.string.total_vaccinations_x, vaccData.totalVaccinations.formatToShortNumber()), style = MaterialTheme.typography.body1)
-            vaccData.peopleVaccinated?.let {
-                Text(text = stringResource(id = R.string.vaccinated_x, it.formatToShortNumber()), style = MaterialTheme.typography.body1)
-            }
-            vaccData.peopleFullyVaccinated?.let {
-                Text(text = stringResource(id = R.string.fully_vaccinated_x, it.formatToShortNumber()), style = MaterialTheme.typography.body1)
-            }
-        }
-    }
+    VaccinationDataRow(vaccData)
 }
 
 class VaccinationDataProvider: PreviewParameterProvider<VaccinationData> {
