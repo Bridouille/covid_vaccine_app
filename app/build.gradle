@@ -56,6 +56,7 @@ ext {
     compose_version = "1.0.0-beta01"
     moshi_version = "1.11.0"
     retrofit_version = "2.9.0"
+    mobius_version = "1.5.3"
 }
 
 dependencies {
@@ -87,6 +88,11 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
     implementation "com.squareup.okhttp3:logging-interceptor:4.3.1"
+
+    // Mobius deps
+    implementation "com.spotify.mobius:mobius-core:$mobius_version"
+    implementation "com.spotify.mobius:mobius-rx2:$mobius_version"
+    implementation "com.spotify.mobius:mobius-android:$mobius_version"
 
     // Compose stuff
     implementation "androidx.compose.compiler:compiler:1.0.0-beta01"

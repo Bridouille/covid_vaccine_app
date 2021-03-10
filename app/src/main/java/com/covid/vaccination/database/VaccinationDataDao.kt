@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.covid.vaccination.database.models.VaccinationData
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,8 +16,8 @@ interface VaccinationDataDao {
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertVaccinationData(list: List<VaccinationData>)
+    fun insertVaccinationData(list: List<VaccinationData>)
 
     @Query("SELECT * FROM $TABLE_NAME WHERE iso_code = :isoCode")
-    fun getVaccinationDataForCountry(isoCode: String) : Flow<List<VaccinationData>>
+    fun getVaccinationDataForCountry(isoCode: String) : Observable<List<VaccinationData>>
 }

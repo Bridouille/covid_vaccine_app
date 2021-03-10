@@ -33,15 +33,20 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun MainScreen(mainVM: MainVM) {
+    val vs by mainVM.models.observeAsState()
 
-    val vs by mainVM.viewState.observeAsState()
     vs?.let {
-        MainContent(it)
+        MainContent(it) {
+            mainVM.dispatchEvent(it)
+        }
     }
 }
 
 @Composable
-fun MainContent(viewState: ViewState) {
+fun MainContent(
+    viewState: ViewState,
+    eventSender: (Event) -> Unit
+) {
     MaterialTheme {
         val typography = MaterialTheme.typography
         Column(
@@ -49,7 +54,7 @@ fun MainContent(viewState: ViewState) {
         ) {
             //.clip(shape = RoundedCornerShape(4.dp)),
 
-            Text("A day in Shark Fin ${viewState.isLoading} -> ${viewState.data.size}",
+            Text("A day in Shark Fin ${viewState.isRefreshingData} -> ${viewState.data.size}",
                 style = typography.h6)
             Text("Davenport, California",
                 style = typography.body2)
