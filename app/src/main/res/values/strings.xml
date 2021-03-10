@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Covid vaccination</string>
+    <string name="never">Never</string>
+    <string name="refreshing">Refreshing …</string>
+    <string name="last_refreshed_x">Last refreshed %1$s</string>
+    <string name="vaccinated_x">vaccinated: %1$s</string>
+    <string name="fully_vaccinated_x">fully vaccinated: %1$s</string>
+    <string name="data_updated_x">updated %1$s</string>
+    <string name="total_vaccinations_x">total vaccinations: %1$s</string>
+    <string name="search_country">Search country</string>
+    <string name="error_while_fetching_data">Error while fetching data</string>
 </resources>

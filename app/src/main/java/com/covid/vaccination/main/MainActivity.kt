@@ -1,18 +1,16 @@
 package com.covid.vaccination.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.snapshots.Snapshot.Companion.observe
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Observer
+import com.covid.vaccination.main.ui.MainContent
+import com.spotify.mobius.android.LiveQueue
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,9 +23,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
-            MainScreen(mainVM)
-        }
+        setContent { MainScreen(mainVM) }
+    }
+}
+
+fun Long.formatToShortNumber(): String {
+    return when {
+        this >= 1000000000 -> String.format("%.2fB", this / 1000000000.0)
+        this >= 1000000 -> String.format("%.2fM", this / 1000000.0)
+        this >= 1000 -> String.format("%.2fK", this / 1000.0)
+        else -> this.toString()
     }
 }
 
@@ -35,31 +40,31 @@ class MainActivity : AppCompatActivity() {
 fun MainScreen(mainVM: MainVM) {
     val vs by mainVM.models.observeAsState()
 
+    // This is black magic to me
+    val ve = remember { mutableStateOf<ViewEffect?>(null) }
+    mainVM.viewEffects.setObserver( LocalLifecycleOwner.current, {
+        ve.value = it
+    })
+
     vs?.let {
-        MainContent(it) {
+        MainContent(it, ve.value) {
             mainVM.dispatchEvent(it)
         }
+
+        // re-sets the view effects after a recomposition
+        // black magic again
+        SideEffect { ve.value = null }
     }
 }
 
 @Composable
-fun MainContent(
-    viewState: ViewState,
-    eventSender: (Event) -> Unit
-) {
-    MaterialTheme {
-        val typography = MaterialTheme.typography
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            //.clip(shape = RoundedCornerShape(4.dp)),
-
-            Text("A day in Shark Fin ${viewState.isRefreshingData} -> ${viewState.data.size}",
-                style = typography.h6)
-            Text("Davenport, California",
-                style = typography.body2)
-            Text("December 2018",
-                style = typography.body2)
-        }
+fun <R, T : R> LiveQueue<T>.observeAsState(initial: R?): State<R?> {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val state = remember { mutableStateOf(initial) }
+    DisposableEffect(this, lifecycleOwner) {
+        val observer = Observer<T> { state.value = it }
+        setObserver(lifecycleOwner, observer)
+        onDispose { clearObserver() }
     }
+    return state
 }

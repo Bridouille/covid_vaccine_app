@@ -20,4 +20,7 @@ interface VaccinationDataDao {
 
     @Query("SELECT * FROM $TABLE_NAME WHERE iso_code = :isoCode")
     fun getVaccinationDataForCountry(isoCode: String) : Observable<List<VaccinationData>>
+
+    @Query("SELECT * FROM $TABLE_NAME")
+    fun getAllVaccinationData() : Observable<List<VaccinationData>>
 }
