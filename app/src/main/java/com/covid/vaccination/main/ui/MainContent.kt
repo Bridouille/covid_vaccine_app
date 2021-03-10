@@ -83,12 +83,13 @@ fun MainContent(
                 Column(modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        vertical = 8.dp,
                         horizontal = 16.dp
                     )) {
                     TextField(
                         value = textState.value,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(
+                           vertical = 8.dp
+                        ),
                         placeholder = {
                             Text(text = stringResource(id = R.string.search_country))
                         },
