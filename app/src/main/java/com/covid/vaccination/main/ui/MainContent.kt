@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.covid.vaccination.R
 import com.covid.vaccination.database.models.VaccinationData
 import com.covid.vaccination.main.*
+import com.covid.vaccination.utils.extFunctions.formatToShortNumber
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
