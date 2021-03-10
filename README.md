@@ -1,5 +1,8 @@
 # Covid vaccination app
-Sample app using Jetpack Compose + Dagger Hilt + Coroutines
+Sample app using Jetpack Compose + Dagger Hilt in a MVI implementation usgin [the mobius framework](https://github.com/spotify/mobius)
+
+# Screenshots
+<img src="art/screenshot-1.png" width="25%" />     <img src="art/screenshot-2.png" width="25%" />
 
 # Data
 Taken from https://github.com/owid/covid-19-data more specificaly [this page](https://covid.ourworldindata.org/data/vaccinations/vaccinations.json)
